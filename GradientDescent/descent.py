@@ -21,7 +21,7 @@ def output_formula(features, weights, bias):
     return sigmoid(np.dot(features, weights) + bias)
 
 def error_formula(y, output):
-    return -y * np.log(output) - (1 - y) * np.log(1 - output)
+    return - y*np.log(output) - (1 - y) * np.log(1-output)
 
 def update_weights(x, y, weights, bias, learnrate):
     output = output_formula(x, weights, bias)
@@ -45,6 +45,7 @@ def train(features, targets, epochs, learnrate, graph_lines=False):
     for e in range(epochs):
         for x, y in zip(features, targets):
             output = output_formula(x, weights, bias)
+            error = error_formula(y, output)
             weights, bias = update_weights(x, y, weights, bias, learnrate)
 
         out = output_formula(features, weights, bias)
@@ -77,7 +78,7 @@ def train(features, targets, epochs, learnrate, graph_lines=False):
 
 
 data = pd.read_csv('data.csv', header=None)
-x = np.array(data[[0, 1]])
-print(x)
-y = np.array(data[[2]])
-train(x, y, epochs, learnrate, True)
+X = np.array(data[[0,1]])
+y = np.array(data[2])
+plt.show()
+train(X, y, epochs, learnrate, True)
